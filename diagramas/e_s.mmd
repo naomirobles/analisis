@@ -1,0 +1,63 @@
+graph TB
+    %% Entradas del Usuario
+    subgraph "ENTRADAS"
+        A1[Datos de Registro<br/>Email, Contraseña<br/>País, Grado Académico]
+        A2[Credenciales de Login<br/>Email, Contraseña]
+        A3[Datos de Tarea<br/>Título, Descripción<br/>Fecha Límite, Categoría]
+        A4[Actualización de Perfil<br/>Nombre, Foto<br/>País, Grado Académico]
+        A5[Feedback de Recomendaciones<br/>Útil/No Útil]
+    end
+
+    %% Sistema Central
+    A1 --> SISTEMA[SISTEMA DE GESTIÓN<br/>DE TAREAS ACADÉMICAS]
+    A2 --> SISTEMA
+    A3 --> SISTEMA
+    A4 --> SISTEMA
+    A5 --> SISTEMA
+
+    %% Salidas del Sistema
+    SISTEMA --> B1[Cuenta Creada<br/>Token de Autenticación]
+    SISTEMA --> B2[Sesión Iniciada<br/>Dashboard Principal]
+    SISTEMA --> B3[Tarea Registrada<br/>Recomendaciones Generadas]
+    SISTEMA --> B4[Vista de Calendario<br/>Tareas por Fecha]
+    SISTEMA --> B5[Lista por Categorías<br/>Tareas Organizadas]
+    SISTEMA --> B6[Recursos Educativos<br/>Videos, Artículos, Enlaces]
+    SISTEMA --> B7[Notificaciones<br/>Tareas Próximas a Vencer]
+    SISTEMA --> B8[Perfil Actualizado<br/>Información Personal]
+
+    subgraph "SALIDAS"
+        B1
+        B2
+        B3
+        B4
+        B5
+        B6
+        B7
+        B8
+    end
+
+    %% APIs Externas
+    subgraph "ENTRADAS EXTERNAS"
+        C1[YouTube API<br/>Videos Educativos]
+        C2[Wikipedia API<br/>Artículos de Referencia]
+        C3[Email Service<br/>Recuperación de Contraseña]
+    end
+
+    C1 --> SISTEMA
+    C2 --> SISTEMA
+    C3 --> SISTEMA
+
+    style SISTEMA fill:#e1f5fe
+    style A1 fill:#f3e5f5
+    style A2 fill:#f3e5f5
+    style A3 fill:#f3e5f5
+    style A4 fill:#f3e5f5
+    style A5 fill:#f3e5f5
+    style B1 fill:#e8f5e8
+    style B2 fill:#e8f5e8
+    style B3 fill:#e8f5e8
+    style B4 fill:#e8f5e8
+    style B5 fill:#e8f5e8
+    style B6 fill:#e8f5e8
+    style B7 fill:#e8f5e8
+    style B8 fill:#e8f5e8

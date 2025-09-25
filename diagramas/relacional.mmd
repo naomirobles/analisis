@@ -1,0 +1,103 @@
+erDiagram
+    USERS {
+        int id PK "Primary Key"
+        varchar email UK "Unique Email"
+        varchar password_hash "Contraseña Hasheada"
+        varchar name "Nombre Completo"
+        varchar profile_photo "URL de Foto"
+        varchar country "País de Origen"
+        varchar academic_level "Último Grado de Estudios"
+        boolean email_verified "Email Verificado"
+        timestamp created_at "Fecha de Creación"
+        timestamp updated_at "Última Actualización"
+    }
+
+    CATEGORIES {
+        int id PK "Primary Key"
+        int user_id FK "Usuario Propietario"
+        varchar name UK "Nombre de Categoría"
+        varchar color "Color Hexadecimal"
+        timestamp created_at "Fecha de Creación"
+    }
+
+    TASKS {
+        int id PK "Primary Key"
+        int user_id FK "Usuario Propietario"
+        int category_id FK "Categoría Asignada"
+        varchar title "Título de la Tarea"
+        text description "Descripción Detallada"
+        date due_date "Fecha Límite"
+        date start_date "Fecha de Inicio Planificada"
+        int estimated_hours "Horas Estimadas"
+        enum status "Estado: TODO, IN_PROGRESS, COMPLETED"
+        text notes "Notas Adicionales"
+        boolean is_completed "Tarea Completada"
+        timestamp completed_at "Fecha de Completado"
+        timestamp created_at "Fecha de Creación"
+        timestamp updated_at "Última Actualización"
+    }
+
+    SAVED_RECOMMENDATIONS {
+        int id PK "Primary Key"
+        int task_id FK "Tarea Relacionada"
+        int user_id FK "Usuario"
+        varchar title "Título del Recurso"
+        text description "Descripción"
+        varchar url "Enlace al Recurso"
+        varchar type "Tipo: video, article, academic"
+        varchar source "Fuente: YouTube, Wikipedia, etc."
+        varchar thumbnail_url "URL de Miniatura"
+        timestamp saved_at "Fecha de Guardado"
+    }
+
+    RECOMMENDATION_LOGS {
+        int id PK "Primary Key"
+        int user_id FK "Usuario"
+        varchar task_title "Título de Tarea"
+        text keywords "Palabras Clave Extraídas"
+        int recommendations_count "Número de Recomendaciones"
+        timestamp created_at "Fecha de Generación"
+    }
+
+    RECOMMENDATION_FEEDBACK {
+        int id PK "Primary Key"
+        int user_id FK "Usuario"
+        int recommendation_log_id FK "Log de Recomendación"
+        varchar recommendation_title "Título del Recurso"
+        boolean is_useful "Útil/No Útil"
+        text feedback_comment "Comentario Opcional"
+        timestamp created_at "Fecha del Feedback"
+    }
+
+    PASSWORD_RESET_TOKENS {
+        int id PK "Primary Key"
+        int user_id FK "Usuario"
+        varchar token UK "Token de Recuperación"
+        timestamp expires_at "Fecha de Expiración"
+        boolean used "Token Usado"
+        timestamp created_at "Fecha de Creación"
+    }
+
+    USER_SESSIONS {
+        int id PK "Primary Key"
+        int user_id FK "Usuario"
+        varchar session_token UK "Token de Sesión"
+        varchar ip_address "IP del Cliente"
+        varchar user_agent "Navegador/Dispositivo"
+        timestamp expires_at "Fecha de Expiración"
+        timestamp last_activity "Última Actividad"
+        timestamp created_at "Fecha de Creación"
+    }
+
+    %% Relaciones
+    USERS ||--o{ CATEGORIES : "crea"
+    USERS ||--o{ TASKS : "posee"
+    USERS ||--o{ SAVED_RECOMMENDATIONS : "guarda"
+    USERS ||--o{ RECOMMENDATION_LOGS : "genera"
+    USERS ||--o{ RECOMMENDATION_FEEDBACK : "proporciona"
+    USERS ||--o{ PASSWORD_RESET_TOKENS : "solicita"
+    USERS ||--o{ USER_SESSIONS : "inicia"
+    
+    CATEGORIES ||--o{ TASKS : "clasifica"
+    TASKS ||--o{ SAVED_RECOMMENDATIONS : "recibe"
+    RECOMMENDATION_LOGS ||--o{ RECOMMENDATION_FEEDBACK : "evalúa"

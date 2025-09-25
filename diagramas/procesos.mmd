@@ -1,0 +1,85 @@
+%%{init:{
+  'theme': 'base',
+  'themeVariables': { 'fontSize': '10px' },
+  'flowchart': {
+    'diagramPadding': 8,
+    'nodeSpacing': 18,
+    'rankSpacing': 18
+  }
+}}%%
+flowchart TD
+    START([Usuario Accede al Sistema]) --> LOGIN{¿Usuario<br/>Registrado?}
+    
+    LOGIN -->|No| REGISTER[Proceso de Registro]
+    LOGIN -->|Sí| AUTH[Proceso de Autenticación]
+    
+    REGISTER --> REG1[Ingresar Datos:<br/>Email, Contraseña<br/>País, Grado Académico]
+    REG1 --> REG2[Validar Datos]
+    REG2 --> REG3{¿Datos<br/>Válidos?}
+    REG3 -->|No| REG1
+    REG3 -->|Sí| REG4[Crear Cuenta]
+    REG4 --> REG5[Enviar Email<br/>de Verificación]
+    REG5 --> DASHBOARD
+    
+    AUTH --> AUTH1[Ingresar Credenciales]
+    AUTH1 --> AUTH2[Validar Login]
+    AUTH2 --> AUTH3{¿Credenciales<br/>Correctas?}
+    AUTH3 -->|No| AUTH4[Mostrar Error]
+    AUTH4 --> AUTH1
+    AUTH3 -->|Sí| DASHBOARD[Dashboard Principal]
+    
+    DASHBOARD --> ACTION{Acción del Usuario}
+    
+    ACTION -->|Crear Tarea| TASK_CREATE[Proceso de Creación de Tarea]
+    ACTION -->|Ver Calendario| CALENDAR[Vista de Calendario]
+    ACTION -->|Gestionar Perfil| PROFILE[Gestión de Perfil]
+    ACTION -->|Ver por Categorías| CATEGORIES[Vista por Categorías]
+    
+    TASK_CREATE --> TC1[Ingresar Datos de Tarea:<br/>Título, Descripción<br/>Fecha, Categoría]
+    TC1 --> TC2[Guardar Tarea]
+    TC2 --> TC3[Generar Recomendaciones]
+    TC3 --> TC4[Procesar Palabras Clave]
+    TC4 --> TC5[Consultar APIs Externas:<br/>YouTube, Wikipedia]
+    TC5 --> TC6[Filtrar por Nivel Académico]
+    TC6 --> TC7[Mostrar Recomendaciones]
+    TC7 --> TC8{¿Usuario Guarda<br/>Recomendaciones?}
+    TC8 -->|Sí| TC9[Guardar en BD]
+    TC8 -->|No| TC10[Solo Mostrar]
+    TC9 --> DASHBOARD
+    TC10 --> DASHBOARD
+    
+    CALENDAR --> CAL1[Mostrar Tareas por Fecha]
+    CAL1 --> CAL2{¿Usuario Selecciona<br/>Tarea?}
+    CAL2 -->|Sí| TASK_DETAIL[Detalle de Tarea]
+    CAL2 -->|No| CALENDAR
+    
+    TASK_DETAIL --> TD1{Acción en Tarea}
+    TD1 -->|Editar| TASK_EDIT[Editar Tarea]
+    TD1 -->|Completar| TASK_COMPLETE[Marcar Completada]
+    TD1 -->|Eliminar| TASK_DELETE[Eliminar Tarea]
+    TD1 -->|Ver Recomendaciones| SHOW_REC[Mostrar Recomendaciones Guardadas]
+    
+    TASK_EDIT --> TASK_CREATE
+    TASK_COMPLETE --> TC11[Actualizar Estado]
+    TASK_DELETE --> TC12[Confirmar Eliminación]
+    TC11 --> DASHBOARD
+    TC12 --> DASHBOARD
+    
+    SHOW_REC --> REC1[Mostrar Recursos Guardados]
+    REC1 --> REC2{¿Usuario da<br/>Feedback?}
+    REC2 -->|Sí| REC3[Registrar Feedback]
+    REC2 -->|No| DASHBOARD
+    REC3 --> DASHBOARD
+    
+    PROFILE --> PROF1[Actualizar Información]
+    PROF1 --> DASHBOARD
+    
+    CATEGORIES --> CAT1[Filtrar por Categoría]
+    CAT1 --> CAT2[Mostrar Tareas Filtradas]
+    CAT2 --> DASHBOARD
+    
+    style START fill:#e3f2fd
+    style DASHBOARD fill:#f3e5f5
+    style TASK_CREATE fill:#fff3e0
+    style TC3 fill:#e8f5e8
+    style REC3 fill:#fce4ec

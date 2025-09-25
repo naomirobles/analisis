@@ -1,0 +1,71 @@
+\documentclass{pretexto/report}
+% --- Archivo de bibliografía -----------------
+\addbibresource{pretexto/repbib.bib}
+
+
+\title{Análisis y diseño}
+
+%%%%%%%%%%%%%%%%%%%% TERMINA PREÁMBULO %%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%% PORTADA %%%%%%%%%%%%%%%%%%%%%%%
+
+\include{pretexto/portada.tex}                                                     
+
+%%%%%%%%%%%%%%%%%%%% ÍNDICES %%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents 
+\pagebreak
+
+
+%%%%%%%%%%%%%%%%% INTRODUCCIÓN %%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagebreak
+\section{Análisis y Diseño del sistema}
+
+\subsection{Objetivos}
+
+\begin{itemize}
+    \item Desarrollar un sistema que permita al usuario registrar sus habitos y tareas diarias
+    \item Añadir espacios para que el usuario agregue datos que sirvan de contexto para las recomendaciones inteligentes.
+    \item Implementar un modulo que realice recomendaciones inteligentes sobre como realizar los habitos y tareas registradas
+    \item Realizar una interfaz intuitiva y atractiva que permita añadir las tareas y habitos de manera facil
+\end{itemize}
+
+
+\subsection{Diagrama de Entradas y Salidas}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pdfs/e_s.pdf}
+    \caption{Diagrama generado con Mermaid}
+\end{figure}
+
+\subsection{Diagrama Entidad-Relación}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pdfs/relacional.pdf}
+    \caption{Diagrama generado con Mermaid}
+\end{figure}
+
+\subsection{Diagrama de Procesos}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8]{pdfs/procesos-2-3.pdf}
+    \caption{Diagrama generado con Mermaid}
+\end{figure}
+
+\subsection{Diagrama de Casos de Uso}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pdfs/use_cases.pdf}
+    \caption{Diagrama generado con Mermaid}
+\end{figure}
+
+
+%mmdc -i diagramas/nombre_archivo.mmd -o pdfs/nombre_archivo.pdf -b transparent -t default
+
+%%%%%%%%%% BIBLIOGRAFÍA %%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\printbibliography[heading=bibintoc]
+
+\end{document}

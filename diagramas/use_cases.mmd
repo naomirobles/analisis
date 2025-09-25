@@ -1,0 +1,94 @@
+graph TB
+    %% Actores
+    USER[👤 Usuario<br/>Estudiante/Profesional]
+    ADMIN[👨‍💼 Administrador<br/>del Sistema]
+    YOUTUBE[🎥 YouTube API]
+    WIKI[📚 Wikipedia API]
+    EMAIL[📧 Servicio de Email]
+
+    %% Casos de Uso Principales
+    subgraph CUENTA[GESTIÓN DE CUENTA]
+        UC1[Registrar Usuario]
+        UC2[Iniciar Sesión]
+        UC3[Recuperar Contraseña]
+        UC4[Actualizar Perfil]
+        UC5[Cerrar Sesión]
+    end
+
+    subgraph TAREAS[GESTIÓN DE TAREAS]
+        UC6[Crear Tarea]
+        UC7[Editar Tarea]
+        UC8[Eliminar Tarea]
+        UC9[Marcar como Completada]
+        UC10[Ver Lista de Tareas]
+        UC11[Filtrar por Categoría]
+        UC12[Vista de Calendario]
+    end
+
+    subgraph CATEGORIAS[GESTIÓN DE CATEGORÍAS]
+        UC13[Crear Categoría]
+        UC14[Asignar Categoría]
+        UC15[Ver Tareas por Categoría]
+    end
+
+    subgraph RECOMENDACIONES[SISTEMA DE RECOMENDACIONES]
+        UC16[Generar Recomendaciones]
+        UC17[Guardar Recomendación]
+        UC18[Dar Feedback]
+        UC19[Ver Recursos Guardados]
+    end
+
+    subgraph ADMIN_SECTION[ADMINISTRACIÓN]
+        UC20[Monitorear Sistema]
+        UC21[Gestionar Usuarios]
+        UC22[Ver Estadísticas]
+    end
+
+    %% Relaciones Usuario - Casos de Uso
+    USER --- UC1
+    USER --- UC2
+    USER --- UC3
+    USER --- UC4
+    USER --- UC5
+    USER --- UC6
+    USER --- UC7
+    USER --- UC8
+    USER --- UC9
+    USER --- UC10
+    USER --- UC11
+    USER --- UC12
+    USER --- UC13
+    USER --- UC14
+    USER --- UC15
+    USER --- UC16
+    USER --- UC17
+    USER --- UC18
+    USER --- UC19
+
+    %% Relaciones Administrador
+    ADMIN --- UC20
+    ADMIN --- UC21
+    ADMIN --- UC22
+
+    %% Relaciones con APIs Externas
+    UC16 --- YOUTUBE
+    UC16 --- WIKI
+    UC3 --- EMAIL
+
+    %% Dependencias entre casos de uso
+    UC6 -.-> UC16
+    UC7 -.-> UC16
+    UC2 -.-> UC10
+    UC14 -.-> UC13
+    UC17 -.-> UC16
+
+    %% Estilos
+    style USER fill:#e3f2fd
+    style ADMIN fill:#fff3e0
+    style YOUTUBE fill:#ffebee
+    style WIKI fill:#f1f8e9
+    style EMAIL fill:#fce4ec
+    style UC16 fill:#e8f5e8
+    style UC17 fill:#e8f5e8
+    style UC18 fill:#e8f5e8
+    style UC19 fill:#e8f5e8
