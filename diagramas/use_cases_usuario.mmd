@@ -1,0 +1,97 @@
+graph TB
+    %% Actor Principal
+    USER[👤 Usuario<br/>Estudiante/Profesional]
+
+    %% APIs Externas
+    YOUTUBE[🎥 YouTube API]
+    WIKI[📚 Wikipedia API]
+    EMAIL[📧 Servicio de Email]
+
+    %% Casos de Uso del Usuario
+    subgraph CUENTA[GESTIÓN DE CUENTA]
+        UC1[Registrar Usuario]
+        UC2[Iniciar Sesión]
+        UC3[Recuperar Contraseña]
+        UC4[Actualizar Perfil]
+        UC5[Cerrar Sesión]
+    end
+
+    subgraph TAREAS[GESTIÓN DE TAREAS]
+        UC6[Crear Tarea]
+        UC7[Editar Tarea]
+        UC8[Eliminar Tarea]
+        UC9[Marcar como Completada]
+        UC10[Ver Lista de Tareas]
+        UC11[Filtrar por Categoría]
+        UC12[Vista de Calendario]
+        UC13[Programar Recordatorios]
+    end
+
+    subgraph CATEGORIAS[GESTIÓN DE CATEGORÍAS]
+        UC14[Crear Categoría]
+        UC15[Asignar Categoría a Tarea]
+        UC16[Ver Tareas por Categoría]
+        UC17[Editar Categoría]
+        UC18[Eliminar Categoría]
+    end
+
+    subgraph RECOMENDACIONES[SISTEMA DE RECOMENDACIONES]
+        UC19[Generar Recomendaciones]
+        UC20[Ver Recomendaciones]
+        UC21[Guardar Recomendación]
+        UC22[Dar Feedback Positivo]
+        UC23[Dar Feedback Negativo]
+        UC24[Ver Recursos Guardados]
+        UC25[Eliminar Recomendación Guardada]
+    end
+
+    subgraph REPORTES[REPORTES Y ESTADÍSTICAS]
+        UC26[Ver Progreso Personal]
+        UC27[Generar Reporte de Productividad]
+        UC28[Ver Estadísticas de Tareas]
+    end
+
+    %% Relaciones Usuario - Casos de Uso
+    USER --- UC1
+    USER --- UC2
+    USER --- UC3
+    USER --- UC4
+    USER --- UC5
+    USER --- UC6
+    USER --- UC7
+    USER --- UC8
+    USER --- UC9
+    USER --- UC10
+    USER --- UC11
+    USER --- UC12
+    USER --- UC13
+    USER --- UC14
+    USER --- UC15
+    USER --- UC16
+    USER --- UC17
+    USER --- UC18
+    USER --- UC19
+    USER --- UC20
+    USER --- UC21
+    USER --- UC22
+    USER --- UC23
+    USER --- UC24
+    USER --- UC25
+    USER --- UC26
+    USER --- UC27
+    USER --- UC28
+
+    %% Relaciones con APIs Externas
+    UC19 --- YOUTUBE
+    UC19 --- WIKI
+    UC3 --- EMAIL
+
+    %% Dependencias entre casos de uso
+    UC6 -.-> UC19
+    UC7 -.-> UC19
+    UC2 -.-> UC10
+    UC15 -.-> UC14
+    UC21 -.-> UC19
+    UC11 -.-> UC16
+    UC27 -.-> UC10
+    UC28 -.-> UC10

@@ -1,0 +1,108 @@
+graph TB
+    %% Actor Principal
+    ADMIN[👨‍💼 Administrador<br/>del Sistema]
+
+    %% Servicios Externos
+    DB[🗄️ Base de Datos]
+    LOGS[📊 Sistema de Logs]
+    BACKUP[💾 Sistema de Backup]
+    MONITOR[📈 Sistema de Monitoreo]
+
+    %% Casos de Uso del Administrador
+    subgraph USER_MGMT[GESTIÓN DE USUARIOS]
+        UC1[Ver Lista de Usuarios]
+        UC2[Buscar Usuario]
+        UC3[Ver Perfil de Usuario]
+        UC4[Suspender Usuario]
+        UC5[Activar Usuario]
+        UC6[Eliminar Cuenta de Usuario]
+        UC7[Resetear Contraseña Usuario]
+        UC8[Ver Actividad del Usuario]
+    end
+
+    subgraph SYSTEM_MGMT[GESTIÓN DEL SISTEMA]
+        UC9[Monitorear Rendimiento]
+        UC10[Ver Logs del Sistema]
+        UC11[Configurar Parámetros]
+        UC12[Gestionar Mantenimiento]
+        UC13[Actualizar Sistema]
+        UC14[Reiniciar Servicios]
+        UC15[Configurar APIs Externas]
+    end
+
+    subgraph DATA_MGMT[GESTIÓN DE DATOS]
+        UC16[Realizar Backup Manual]
+        UC17[Restaurar Backup]
+        UC18[Limpiar Datos Antiguos]
+        UC19[Exportar Datos]
+        UC20[Importar Datos]
+        UC21[Ver Integridad de Datos]
+    end
+
+    subgraph ANALYTICS[ANÁLISIS Y REPORTES]
+        UC22[Ver Estadísticas Globales]
+        UC23[Generar Reporte de Uso]
+        UC24[Analizar Patrones de Usuario]
+        UC25[Ver Métricas de APIs]
+        UC26[Monitorear Recomendaciones]
+        UC27[Generar Reporte de Feedback]
+        UC28[Analizar Rendimiento]
+    end
+
+    subgraph CONTENT_MGMT[GESTIÓN DE CONTENIDO]
+        UC29[Moderar Contenido Reportado]
+        UC30[Configurar Filtros]
+        UC31[Gestionar Categorías Globales]
+        UC32[Revisar Feedback Negativo]
+        UC33[Configurar Blacklist de URLs]
+    end
+
+    subgraph SECURITY[SEGURIDAD Y AUDITORÍA]
+        UC34[Ver Intentos de Login Fallidos]
+        UC35[Revisar Actividad Sospechosa]
+        UC36[Configurar Políticas de Seguridad]
+        UC37[Generar Reporte de Auditoría]
+        UC38[Gestionar Tokens de Sesión]
+        UC39[Ver Logs de Acceso]
+    end
+
+    %% Relaciones con casos de uso
+    ADMIN --- UC1
+    ADMIN --- UC2
+    ADMIN --- UC3
+    ADMIN --- UC4
+    ADMIN --- UC5
+    ADMIN --- UC6
+    ADMIN --- UC7
+    ADMIN --- UC8
+    ADMIN --- UC9
+    ADMIN --- UC10
+    ADMIN --- UC11
+    ADMIN --- UC12
+    ADMIN --- UC13
+    ADMIN --- UC14
+    ADMIN --- UC15
+    ADMIN --- UC16
+    ADMIN --- UC17
+    ADMIN --- UC18
+    ADMIN --- UC19
+    ADMIN --- UC20
+    ADMIN --- UC21
+    ADMIN --- UC22
+    ADMIN --- UC23
+    ADMIN --- UC24
+    ADMIN --- UC25
+    ADMIN --- UC26
+    ADMIN --- UC27
+    ADMIN --- UC28
+    ADMIN --- UC29
+    ADMIN --- UC30
+    ADMIN --- UC31
+    ADMIN --- UC32
+    ADMIN --- UC33
+    ADMIN --- UC34
+    ADMIN --- UC35
+    ADMIN --- UC36
+    ADMIN --- UC37
+    ADMIN --- UC38
+    ADMIN --- UC39
