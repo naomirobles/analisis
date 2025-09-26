@@ -2,6 +2,15 @@
 % --- Archivo de bibliografía -----------------
 \addbibresource{pretexto/repbib.bib}
 
+\def\fillandplacepagenumber{%
+ \par\pagestyle{empty}%
+ \vbox to 0pt{\vss}\vfill
+ \vbox to 0pt{\baselineskip0pt
+   \hbox to\linewidth{\hss}%
+   \baselineskip\footskip
+   \hbox to\linewidth{%
+     \hfil\thepage\hfil}\vss}}
+
 
 \title{Análisis y diseño}
 
@@ -34,40 +43,50 @@
 
 
 \subsection{Diagrama de Entradas y Salidas}
+
+asdsa
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{pdfs/e_s.pdf}
+    \includegraphics[width=\linewidth]{pngs/e_s.png}
     \caption{Diagrama generado con Mermaid}
 \end{figure}
 
 \subsection{Diagrama Entidad-Relación}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{pdfs/relacional.pdf}
+    \includegraphics[width=\linewidth]{pngs/relacional.png}
     \caption{Diagrama generado con Mermaid}
 \end{figure}
 
 \subsection{Diagrama de Procesos}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8]{pdfs/procesos-2-3.pdf}
+    \includegraphics[height=\textwidth]{pngs/procesos.png}
     \caption{Diagrama generado con Mermaid}
 \end{figure}
 
-# TODO: Quitar las hojas en blanco entre diagramas
-# TODO: Poner hojas en horizontal para los diagramas horizontalmente grandes
-# TODO: separar el diagrama de casos de uso en use_Cases_admin y use_cases_usuario
-
+\begin{landscape}
+\landscapefancy  % Solo agregar esta línea
 
 \subsection{Diagrama de Casos de Uso}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{pdfs/use_cases.pdf}
+    \includegraphics[width=\linewidth]{pngs/use_cases.png}
     \caption{Diagrama generado con Mermaid}
 \end{figure}
 
+\subsection{Diagrama de Entradas y Salidas}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pngs/e_s.png}
+    \caption{Diagrama generado con Mermaid}
+\end{figure}
 
-%mmdc -i diagramas/nombre_archivo.mmd -o pdfs/nombre_archivo.pdf -b transparent -t default
+\end{landscape}
+
+
+
+%mmdc -i diagramas/nombre_archivo.mmd -o pngs/nombre_archivo.png -b transparent -t default
 
 %%%%%%%%%% BIBLIOGRAFÍA %%%%%%%%%%%%%%%%%%%%%
 \pagebreak

@@ -87,6 +87,16 @@
 \renewcommand{\footrulewidth}{0.4pt}
 
 
+% Comando para mantener headers/footers en landscape
+\newcommand{\landscapefancy}{%
+    \pagestyle{fancy}%
+    \fancyhf{}%
+    \fancyhead[L]{\footnotesize Ingeniería de Software para Sistemas Inteligentes}%
+    \fancyfoot[C]{\thepage}%
+    \renewcommand{\headrulewidth}{0.4pt}%
+    \renewcommand{\footrulewidth}{0.4pt}%
+}
+
 
 % Definir el estilo para el código
 \lstdefinestyle{mystyle}{
