@@ -1,0 +1,18 @@
+flowchart LR
+  Admin((👨‍💼 Administrador))
+  subgraph ADMINMOD["Administración del Sistema"]
+    direction TB
+    Monitoreo[Monitorear Sistema]
+    GestionUsuarios[Gestionar Usuarios]
+    Estadisticas[Ver Estadísticas]
+    Logs[Ver Logs]
+  end
+
+  Admin --> Monitoreo
+  Admin --> GestionUsuarios
+  Admin --> Estadisticas
+  Monitoreo --> Logs
+
+  %% include: monitoreo incluye alertas si hay fallos
+  Alert[Generar Alertas]
+  Monitoreo -.->|incluye| Alert

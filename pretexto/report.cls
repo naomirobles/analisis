@@ -91,7 +91,9 @@
 \newcommand{\landscapefancy}{%
     \pagestyle{fancy}%
     \fancyhf{}%
-    \fancyhead[L]{\footnotesize Ingeniería de Software para Sistemas Inteligentes}%
+    % Encabezado en borde superior físico (sin rotar el texto)
+    \fancyhead[C]{\footnotesize Ingeniería de Software para Sistemas Inteligentes}%
+    % Pie en borde inferior físico (sin rotar el texto)
     \fancyfoot[C]{\thepage}%
     \renewcommand{\headrulewidth}{0.4pt}%
     \renewcommand{\footrulewidth}{0.4pt}%

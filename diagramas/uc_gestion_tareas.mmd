@@ -1,0 +1,52 @@
+flowchart TB
+  %% Actor
+  Usuario((👤 Usuario))
+
+  %% Subgrafo principal
+  subgraph TASKS["Gestión de Tareas"]
+    direction TB
+    Crear[Crear Tarea]
+    Editar[Editar Tarea]
+    Eliminar[Eliminar Tarea]
+    Completar[Marcar como Completada]
+    VerLista[Ver Lista de Tareas]
+    Filtrar[Filtrar por Categoría]
+    Calendario[Vista de Calendario]
+
+    %% Subgrafo de Categorías dentro de Tareas
+    subgraph CATEGORIES["Gestión de Categorías"]
+      direction TB
+      CrearCat[Crear Categoría]
+      EditarCat[Editar Categoría]
+      EliminarCat[Eliminar Categoría]
+    end
+  end
+
+  %% Relación invisible para forzar verticalidad
+  Usuario -.-> TASKS
+
+  %% Relaciones del usuario con los casos de uso
+  Usuario --> VerLista
+  Usuario --> Crear
+  Usuario --> Editar
+  Usuario --> Eliminar
+  Usuario --> Completar
+  Usuario --> Calendario
+
+  %% Relaciones internas
+  VerLista --> Filtrar
+  Crear --> VerLista
+  Editar --> VerLista
+  Eliminar --> VerLista
+  Completar --> VerLista
+
+  %% include: crear tarea incluye validar datos
+  Validar[Validar Datos]
+  Crear -.->|<<include>>| Validar
+
+  %% extend: eliminación puede mostrar confirmación (opcional)
+  Confirm[Confirmar Eliminación]
+  Confirm -.->|<<extend>>| Eliminar
+
+  %% Relación de Filtrar con Categorías
+  Filtrar --> CATEGORIES

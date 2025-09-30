@@ -1,0 +1,158 @@
+graph TB
+    %% Capa de Presentación
+    subgraph PRESENTATION["🖥️ CAPA DE PRESENTACIÓN"]
+        WEB[Web Browser<br/>Chrome, Firefox, Safari, Edge]
+        MOBILE[Mobile Browser<br/>iOS Safari, Chrome Mobile]
+        
+        subgraph REACT_APP["React Application"]
+            COMPONENTS[Components<br/>TaskList, Calendar<br/>Recommendations, Profile]
+            PAGES[Pages/Views<br/>Dashboard, Login<br/>Register, TaskDetail]
+            HOOKS[Custom Hooks<br/>useAuth, useTasks<br/>useRecommendations]
+            CONTEXT[Context API<br/>AuthContext<br/>TaskContext]
+            ROUTER[React Router<br/>Route Management]
+        end
+    end
+
+    %% Capa de API/Backend
+    subgraph API_LAYER["🔌 CAPA DE API / BACKEND"]
+        subgraph EXPRESS_SERVER["Express.js Server"]
+            MIDDLEWARE[Middleware Layer<br/>CORS, Auth, Validation<br/>Error Handler, Logger]
+            
+            subgraph ROUTES["API Routes"]
+                AUTH_ROUTES["api/auth<br/>Login, Register<br/>Logout, Reset Password"]
+                TASK_ROUTES["api/tasks<br/>CRUD Operations<br/>Filter, Search"]
+                USER_ROUTES["api/users<br/>Profile Management<br/>Preferences"]
+                REC_ROUTES["api/recommendations<br/>Generate, Save<br/>Feedback"]
+                CAT_ROUTES["api/categories<br/>CRUD Operations<br/>Assignment"]
+                ADMIN_ROUTES["api/admin<br/>User Management<br/>System Monitoring"]
+            end
+            
+            subgraph CONTROLLERS["Controllers"]
+                AUTH_CTRL[AuthController]
+                TASK_CTRL[TaskController]
+                USER_CTRL[UserController]
+                REC_CTRL[RecommendationController]
+                CAT_CTRL[CategoryController]
+                ADMIN_CTRL[AdminController]
+            end
+        end
+    end
+
+    %% Capa de Lógica de Negocio
+    subgraph BUSINESS_LAYER["⚙️ CAPA DE LÓGICA DE NEGOCIO"]
+        subgraph SERVICES["Services"]
+            AUTH_SERVICE[Authentication Service<br/>JWT Generation<br/>Password Hashing<br/>Token Validation]
+            TASK_SERVICE[Task Service<br/>Task Operations<br/>Deadline Calculation<br/>Status Management]
+            REC_SERVICE[Recommendation Service<br/>Keyword Extraction<br/>API Integration<br/>Result Filtering]
+            EMAIL_SERVICE[Email Service<br/>Password Recovery<br/>Notifications<br/>Welcome Emails]
+            ANALYTICS_SERVICE[Analytics Service<br/>User Statistics<br/>Performance Metrics]
+        end
+        
+        subgraph NLP["NLP Processing"]
+            KEYWORD_EXTRACT[Keyword Extractor<br/>Natural.js<br/>Stopwords Filter<br/>Tokenization]
+            TEXT_ANALYSIS[Text Analysis<br/>Academic Level Matching<br/>Content Classification]
+        end
+    end
+
+    %% Capa de Datos
+    subgraph DATA_LAYER["💾 CAPA DE DATOS"]
+        subgraph MODELS["Data Models"]
+            USER_MODEL[User Model<br/>CRUD Methods<br/>Validation]
+            TASK_MODEL[Task Model<br/>CRUD Methods<br/>Queries]
+            CAT_MODEL[Category Model<br/>CRUD Methods]
+            REC_MODEL[Recommendation Model<br/>CRUD Methods]
+        end
+        
+        DATABASE[(PostgreSQL<br/>Database<br/>-------------<br/>users<br/>tasks<br/>categories<br/>saved_recommendations<br/>recommendation_logs<br/>recommendation_feedback<br/>password_reset_tokens<br/>user_sessions)]
+    end
+
+    %% Servicios Externos
+    subgraph EXTERNAL["🌐 SERVICIOS EXTERNOS"]
+        YOUTUBE_API[YouTube Data API v3<br/>Video Search<br/>Educational Content]
+        WIKI_API[Wikipedia API<br/>Article Search<br/>Summaries]
+        EMAIL_SMTP[SMTP Server<br/>Email Delivery<br/>Nodemailer]
+    end
+
+    %% Infraestructura
+    subgraph INFRASTRUCTURE["🏗️ INFRAESTRUCTURA"]
+        CDN[CDN<br/>Static Assets<br/>Images, CSS, JS]
+        CACHE[Redis Cache<br/>Session Storage<br/>API Responses]
+        FILE_STORAGE[File Storage<br/>Profile Photos<br/>Attachments]
+        LOGGER[Logging System<br/>Winston/Morgan<br/>Error Tracking]
+        MONITOR[Monitoring<br/>Performance Metrics<br/>Health Checks]
+    end
+
+    %% Conexiones - Presentación a API
+    WEB --> REACT_APP
+    MOBILE --> REACT_APP
+    REACT_APP --> MIDDLEWARE
+    COMPONENTS --> HOOKS
+    PAGES --> COMPONENTS
+    CONTEXT --> HOOKS
+    ROUTER --> PAGES
+
+    %% Conexiones - API a Controladores
+    MIDDLEWARE --> ROUTES
+    AUTH_ROUTES --> AUTH_CTRL
+    TASK_ROUTES --> TASK_CTRL
+    USER_ROUTES --> USER_CTRL
+    REC_ROUTES --> REC_CTRL
+    CAT_ROUTES --> CAT_CTRL
+    ADMIN_ROUTES --> ADMIN_CTRL
+
+    %% Conexiones - Controladores a Servicios
+    AUTH_CTRL --> AUTH_SERVICE
+    TASK_CTRL --> TASK_SERVICE
+    USER_CTRL --> AUTH_SERVICE
+    REC_CTRL --> REC_SERVICE
+    CAT_CTRL --> TASK_SERVICE
+    ADMIN_CTRL --> ANALYTICS_SERVICE
+
+    %% Conexiones - Servicios a NLP
+    REC_SERVICE --> KEYWORD_EXTRACT
+    REC_SERVICE --> TEXT_ANALYSIS
+    KEYWORD_EXTRACT --> TEXT_ANALYSIS
+
+    %% Conexiones - Servicios a Modelos
+    AUTH_SERVICE --> USER_MODEL
+    TASK_SERVICE --> TASK_MODEL
+    TASK_SERVICE --> CAT_MODEL
+    REC_SERVICE --> REC_MODEL
+    EMAIL_SERVICE --> USER_MODEL
+
+    %% Conexiones - Modelos a Base de Datos
+    USER_MODEL --> DATABASE
+    TASK_MODEL --> DATABASE
+    CAT_MODEL --> DATABASE
+    REC_MODEL --> DATABASE
+
+    %% Conexiones - Servicios a APIs Externas
+    REC_SERVICE --> YOUTUBE_API
+    REC_SERVICE --> WIKI_API
+    EMAIL_SERVICE --> EMAIL_SMTP
+
+    %% Conexiones - Infraestructura
+    REACT_APP -.-> CDN
+    MIDDLEWARE -.-> CACHE
+    MIDDLEWARE -.-> LOGGER
+    EXPRESS_SERVER -.-> MONITOR
+    USER_MODEL -.-> FILE_STORAGE
+
+    %% Estilos
+    style PRESENTATION fill:#e3f2fd
+    style API_LAYER fill:#f3e5f5
+    style BUSINESS_LAYER fill:#fff3e0
+    style DATA_LAYER fill:#e8f5e8
+    style EXTERNAL fill:#ffebee
+    style INFRASTRUCTURE fill:#fce4ec
+    
+    style REACT_APP fill:#bbdefb
+    style EXPRESS_SERVER fill:#e1bee7
+    style SERVICES fill:#ffe0b2
+    style NLP fill:#fff9c4
+    style MODELS fill:#c8e6c9
+    style DATABASE fill:#a5d6a7
+    
+    style REC_SERVICE fill:#ffcc80
+    style KEYWORD_EXTRACT fill:#fff59d
+    style TEXT_ANALYSIS fill:#fff59d

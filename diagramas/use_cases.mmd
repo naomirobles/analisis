@@ -1,94 +1,116 @@
-graph TB
+flowchart LR
     %% Actores
-    USER[👤 Usuario<br/>Estudiante/Profesional]
-    ADMIN[👨‍💼 Administrador<br/>del Sistema]
-    YOUTUBE[🎥 YouTube API]
-    WIKI[📚 Wikipedia API]
-    EMAIL[📧 Servicio de Email]
+    Usuario((👤 Usuario<br/>Estudiante / Profesional))
+    Admin((👨‍💼 Administrador<br/>del Sistema))
 
-    %% Casos de Uso Principales
-    subgraph CUENTA[GESTIÓN DE CUENTA]
-        UC1[Registrar Usuario]
-        UC2[Iniciar Sesión]
-        UC3[Recuperar Contraseña]
-        UC4[Actualizar Perfil]
-        UC5[Cerrar Sesión]
+    %% APIs externas
+    EMAIL[/"📧 Servicio de Email"/]
+    YOUTUBE[(🎥 YouTube API)]
+    WIKI[(📚 Enciclopedias digitales API)]
+
+    %% Sistema - contenedor principal
+    subgraph SISTEMA["SISTEMA DE GESTIÓN DE TAREAS"]
+      direction TB
+
+      %% Módulo: Autenticación y Perfil
+      subgraph AUTH["Autenticación & Perfil"]
+        direction TB
+        Reg[Registrar Usuario]
+        Login[Iniciar Sesión]
+        RecPass[Recuperar Contraseña]
+        Perfil[Actualizar Perfil]
+        Logout[Cerrar Sesión]
+      end
+
+      %% Módulo: Panel / Dashboard
+      Dash[Panel Principal]
+
+      %% Módulo: Gestión de Tareas
+      subgraph TASKS["Gestión de Tareas"]
+        direction TB
+        Crear[Crear Tarea]
+        Editar[Editar Tarea]
+        Eliminar[Eliminar Tarea]
+        Completar[Marcar como Completada]
+        VerLista[Ver Lista de Tareas]
+        Filtrar[Filtrar por Categoría]
+        Calendario[Vista de Calendario]
+      end
+
+      %% Módulo: Categorías
+      subgraph CATS["Categorías"]
+        direction TB
+        CrearCat[Crear Categoría]
+        AsignarCat[Asignar Categoría]
+        VerPorCat[Ver Tareas por Categoría]
+      end
+
+      %% Módulo: Recomendaciones
+      subgraph RECS["Recomendaciones & Recursos"]
+        direction TB
+        GenRec[Generar Recomendaciones]
+        GuardarRec[Guardar Recomendación]
+        VerRecursos[Ver Recursos Guardados]
+        Feedback[Dar Feedback]
+      end
+
+      %% Módulo: Administración
+      subgraph ADMINMOD["Administración del Sistema"]
+        direction TB
+        Monitoreo[Monitorear Sistema]
+        GestionUsuarios[Gestionar Usuarios]
+        Estadisticas[Ver Estadísticas]
+      end
+
     end
 
-    subgraph TAREAS[GESTIÓN DE TAREAS]
-        UC6[Crear Tarea]
-        UC7[Editar Tarea]
-        UC8[Eliminar Tarea]
-        UC9[Marcar como Completada]
-        UC10[Ver Lista de Tareas]
-        UC11[Filtrar por Categoría]
-        UC12[Vista de Calendario]
-    end
+    %% Conexiones actor -> sistema
+    Usuario --> Reg
+    Usuario --> Login
+    Usuario --> VerLista
+    Usuario --> Crear
+    Usuario --> CrearCat
+    Usuario --> GenRec
+    Usuario --> Perfil
 
-    subgraph CATEGORIAS[GESTIÓN DE CATEGORÍAS]
-        UC13[Crear Categoría]
-        UC14[Asignar Categoría]
-        UC15[Ver Tareas por Categoría]
-    end
+    Admin --> Monitoreo
+    Admin --> GestionUsuarios
+    Admin --> Estadisticas
 
-    subgraph RECOMENDACIONES[SISTEMA DE RECOMENDACIONES]
-        UC16[Generar Recomendaciones]
-        UC17[Guardar Recomendación]
-        UC18[Dar Feedback]
-        UC19[Ver Recursos Guardados]
-    end
+    %% Flujo lógico / Navegación
+    Login -->|Accede a| Dash
+    Dash --> VerLista
+    Dash --> Calendario
+    Dash --> VerRecursos
 
-    subgraph ADMIN_SECTION[ADMINISTRACIÓN]
-        UC20[Monitorear Sistema]
-        UC21[Gestionar Usuarios]
-        UC22[Ver Estadísticas]
-    end
+    %% Dependencias / includes (marcadas con etiqueta)
+    Crear -.->|incluye| GenRec
+    Login -.->|incluye| VerLista
 
-    %% Relaciones Usuario - Casos de Uso
-    USER --- UC1
-    USER --- UC2
-    USER --- UC3
-    USER --- UC4
-    USER --- UC5
-    USER --- UC6
-    USER --- UC7
-    USER --- UC8
-    USER --- UC9
-    USER --- UC10
-    USER --- UC11
-    USER --- UC12
-    USER --- UC13
-    USER --- UC14
-    USER --- UC15
-    USER --- UC16
-    USER --- UC17
-    USER --- UC18
-    USER --- UC19
+    %% Acciones dentro del módulo de tareas
+    VerLista --> Filtrar
+    VerLista --> Editar
+    VerLista --> Eliminar
+    VerLista --> Completar
+    Crear --> VerLista
+    Editar --> VerLista
+    Eliminar --> VerLista
+    Completar --> VerLista
 
-    %% Relaciones Administrador
-    ADMIN --- UC20
-    ADMIN --- UC21
-    ADMIN --- UC22
+    %% Categorías
+    CrearCat --> AsignarCat
+    AsignarCat --> VerPorCat
+    VerPorCat --> VerLista
 
-    %% Relaciones con APIs Externas
-    UC16 --- YOUTUBE
-    UC16 --- WIKI
-    UC3 --- EMAIL
+    %% Recomendaciones -> APIs externas
+    GenRec --> YOUTUBE
+    GenRec --> WIKI
+    RecPass --> EMAIL
 
-    %% Dependencias entre casos de uso
-    UC6 -.-> UC16
-    UC7 -.-> UC16
-    UC2 -.-> UC10
-    UC14 -.-> UC13
-    UC17 -.-> UC16
-
-    %% Estilos
-    style USER fill:#e3f2fd
-    style ADMIN fill:#fff3e0
-    style YOUTUBE fill:#ffebee
-    style WIKI fill:#f1f8e9
-    style EMAIL fill:#fce4ec
-    style UC16 fill:#e8f5e8
-    style UC17 fill:#e8f5e8
-    style UC18 fill:#e8f5e8
-    style UC19 fill:#e8f5e8
+    %% Estética / clases (opcional)
+    classDef actores fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
+    classDef sistema fill:#f3f6ff,stroke:#3f51b5,stroke-width:2px;
+    classDef modulo fill:#ffffff,stroke:#9fa8da,stroke-width:1px;
+    class Usuario,Admin actores;
+    class SISTEMA sistema;
+    class AUTH,TASKS,CATS,RECS,ADMINMOD modulo;

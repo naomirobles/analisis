@@ -1,0 +1,30 @@
+flowchart LR
+  Usuario((👤 Usuario))
+  subgraph RECS["Recomendaciones & Recursos"]
+    direction TB
+    GenRec[Generar Recomendaciones]
+    GuardarRec[Guardar Recomendación]
+    VerRecursos[Ver Recursos Guardados]
+    Feedback[Dar Feedback]
+  end
+
+  YOUTUBE[(YouTube API)]
+  WIKI[(Wikipedia API)]
+  EMAIL[/"Email Service"/]
+
+  Usuario --> GenRec
+  Usuario --> GuardarRec
+  Usuario --> VerRecursos
+  Usuario --> Feedback
+
+  GenRec --> YOUTUBE
+  GenRec --> WIKI
+
+  %% include: generar recomendación incluye procesar palabras clave
+  Procesar[Procesar Palabras Clave]
+  GenRec -.->|incluye| Procesar
+
+  %% extend: enviar notificación por email solo si el usuario solicita
+  Notif[Enviar Notificación por Email]
+  Notif -.->|<<extend>>| GuardarRec
+  GuardarRec --> EMAIL

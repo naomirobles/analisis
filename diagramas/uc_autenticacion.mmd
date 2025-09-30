@@ -1,0 +1,23 @@
+flowchart LR
+  Usuario((👤 Usuario))
+  subgraph AUTH["Autenticación & Perfil"]
+    direction TB
+    Reg[Registrar Usuario]
+    Login[Iniciar Sesión]
+    RecPass[Recuperar Contraseña]
+    Perfil[Actualizar Perfil]
+    Logout[Cerrar Sesión]
+  end
+
+  Usuario --> Reg
+  Usuario --> Login
+  Usuario --> RecPass
+  Usuario --> Perfil
+  Usuario --> Logout
+
+  %% include: iniciar sesión siempre lleva al dashboard (flujo lógico)
+  Login -.->|incluye| Dashboard[(Panel Principal)]
+  
+  %% extend: mostrar error si credenciales inválidas
+  InvalidError[Mostrar Error de Credenciales]
+  InvalidError -.->|<<extend>>| Login
